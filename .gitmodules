@@ -1,0 +1,6 @@
+[submodule "P4-ComputerScience"]
+	path = P4-ComputerScience
+	url = https://github.com/pop9459/P4-ComputerScience.git
+[submodule "P4-ProfessionalSkills"]
+	path = P4-ProfessionalSkills
+	url = https://github.com/pop9459/P4-ProfessionalSkills.git
