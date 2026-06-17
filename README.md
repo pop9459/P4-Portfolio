@@ -11,7 +11,6 @@ project repositories using **Git submodules**.
 
 - [Computer Science Portfolio](P4-ComputerScience/portfolio.md)
 - [Professional Skills Portfolio](P4-ProfessionalSkills/portfolio.md)
-- [Innovative Product (Project Smart) Portfolio](ProjectSmart/portfolio.md)
 - [Combined Portfolio](PORTFOLIO.md)
 
 ## Cloning this repository
