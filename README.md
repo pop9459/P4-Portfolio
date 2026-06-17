@@ -56,8 +56,23 @@ git push
 
 ### 4. Generate PDF (optional)
 
-To generate a PDF version of the combined portfolio, use the Visual Studio Code
-extension [Markdown PDF](https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf).
+`export_pdf.py` renders `PORTFOLIO.md` to `PORTFOLIO.pdf` with footer page numbers and a
+book-style table of contents (each entry shows the target page number with dotted
+leaders). It uses [WeasyPrint](https://weasyprint.org/) and `markdown-it-py`.
+
+One-time setup (the WeasyPrint system libraries — pango, cairo, gdk-pixbuf — must be
+installed; on most Linux distros they already are):
+
+```bash
+python -m venv --system-site-packages .venv
+.venv/bin/pip install weasyprint markdown-it-py
+```
+
+Then, after regenerating the combined portfolio:
+
+```bash
+.venv/bin/python export_pdf.py
+```
 
 ## Adding a New Subproject Repository
 
