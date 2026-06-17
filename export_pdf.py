@@ -16,6 +16,10 @@ import sys
 from pathlib import Path
 
 from markdown_it import MarkdownIt
+from pygments import highlight as pyg_highlight
+from pygments.formatters import HtmlFormatter
+from pygments.lexers import get_lexer_by_name
+from pygments.util import ClassNotFound
 from weasyprint import HTML
 
 # Reuse the same slug rule the combiner uses for its markdown TOC anchors.
@@ -26,6 +30,25 @@ SOURCE = ROOT / "PORTFOLIO.md"
 OUTPUT = ROOT / "PORTFOLIO.pdf"
 
 TOC_MAX_LEVEL = 3
+
+# Pygments style for code blocks (a light theme that prints well on white).
+PYGMENTS_STYLE = "default"
+
+
+def highlight_code(code: str, lang: str, _attrs: str) -> str:
+    """markdown-it `highlight` hook: colour a fenced block with Pygments.
+
+    Returns only the highlighted token spans (`nowrap=True`); markdown-it wraps
+    them in `<pre><code>…</code></pre>`. Returns "" for unknown/empty languages so
+    markdown-it falls back to its own escaped, plain rendering.
+    """
+    if not lang:
+        return ""
+    try:
+        lexer = get_lexer_by_name(lang)
+    except ClassNotFound:
+        return ""
+    return pyg_highlight(code, lexer, HtmlFormatter(nowrap=True))
 
 
 def split_front_matter(markdown: str) -> tuple[str, str]:
@@ -183,11 +206,15 @@ hr { border: none; border-top: 1px solid #ddd; margin: 1.4em 0; }
 
 
 def build_html(front_html: str, toc_html: str, body_html: str) -> str:
+    # Pygments token colours first, then CSS so the `pre` block styling (background,
+    # border, wrapping, font) still wins; only per-token `color` rules are added.
+    pygments_css = HtmlFormatter(style=PYGMENTS_STYLE).get_style_defs("pre")
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>Computer Science Y1 P4 Combined Portfolio</title>
+<style>{pygments_css}</style>
 <style>{CSS}</style>
 </head>
 <body>
@@ -210,7 +237,7 @@ def main() -> None:
     markdown = SOURCE.read_text(encoding="utf-8")
     front_md, body_md = split_front_matter(markdown)
 
-    md = MarkdownIt("commonmark").enable("table")
+    md = MarkdownIt("commonmark", {"highlight": highlight_code}).enable("table")
 
     front_html = md.render(front_md)
     body_html, headings = render_body_and_toc(body_md, md)
