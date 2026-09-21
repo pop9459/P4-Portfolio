@@ -4,3 +4,6 @@
 [submodule "P4-ProfessionalSkills"]
 	path = P4-ProfessionalSkills
 	url = https://github.com/pop9459/P4-ProfessionalSkills.git
+[submodule "P4-MusicAutoplayer"]
+	path = P4-MusicAutoplayer
+	url = https://github.com/pop9459/P4-MusicAutoplayer.git

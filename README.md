@@ -10,6 +10,7 @@ project repositories using **Git submodules**.
 ## Quick Links
 
 - [Computer Science Portfolio](P4-ComputerScience/portfolio.md)
+- [Solo Innovator Project - Music Autoplayer](P4-MusicAutoplayer/portfolio.md)
 - [Professional Skills Portfolio](P4-ProfessionalSkills/portfolio.md)
 - [Combined Portfolio](PORTFOLIO.md)
 
