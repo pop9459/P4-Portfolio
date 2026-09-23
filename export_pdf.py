@@ -182,6 +182,17 @@ pre code { background: none; padding: 0; font-size: inherit; }
 
 hr { border: none; border-top: 1px solid #ddd; margin: 1.4em 0; }
 
+/* Images arrive at their natural pixel size, which on A4 is far wider and
+   taller than the page. Cap both axes: the content box is 174mm x 259mm, so
+   a 210mm ceiling leaves room for the heading or caption sharing the page. */
+img {
+    display: block;
+    max-width: 100%;
+    max-height: 210mm;
+    margin: 0.9em auto;
+    break-inside: avoid;
+}
+
 /* ---- Title page ---- */
 .title-page { break-after: page; }
 .title-page h1 { font-size: 26pt; margin-top: 25vh; }
